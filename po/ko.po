@@ -3,21 +3,24 @@
 # This file is distributed under the same license as the PackageKit package.
 #
 # Translators:
-# Seong-ho Cho <darkcircle.0426@gmail.com>, 2013
-# Seong-ho Cho <darkcircle.0426@gmail.com>, 2011
-# Seong-ho Cho <darkcircle.0426@gmail.com>, 2011,2013-2017,2022,2024
+# Seong-ho Cho <darkcircle.0426@gmail.com>, 2013, 2026.
+# Seong-ho Cho <darkcircle.0426@gmail.com>, 2011, 2026.
+# Seong-ho Cho <darkcircle.0426@gmail.com>, 2011,2013-2017,2022,2024, 2026.
 # Shinjo Park <kde@peremen.name>, 2012,2015,2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: PackageKit\n"
 "Report-Msgid-Bugs-To: packagekit@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-01-28 11:14+0100\n"
-"Language-Team: Korean (http://app.transifex.com/freedesktop/packagekit/language/ko/)\n"
+"PO-Revision-Date: 2026-02-24 23:09+0000\n"
+"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
+"Language-Team: Korean <https://hosted.weblate.org/projects/packagekit/translations/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.16.1-dev\n"
 
 #: backends/dnf/pk-backend-dnf-refresh.c:140 src/pk-main.c:174
 msgid "Config file was not found."
@@ -33,7 +36,7 @@ msgstr "설정 파일 불러오기 실패: %s"
 #: client/pk-offline-update.c:171
 #, c-format
 msgid "%i%%"
-msgstr ""
+msgstr "%i%%"
 
 #. TRANSLATORS: this is the message we send plymouth to
 #. * advise of the new percentage completion when installing system upgrades
@@ -50,12 +53,12 @@ msgstr "업데이트 설치 중"
 #. TRANSLATORS: we've finished doing offline updates
 #: client/pk-offline-update.c:214
 msgid "Rebooting after installing updates…"
-msgstr "업데이트 설치 후 다시 시작하는 중..."
+msgstr "업데이트 설치 후 다시 시작하는 중…"
 
 #. TRANSLATORS: we've finished doing offline updates
 #: client/pk-offline-update.c:256
 msgid "Shutting down after installing updates…"
-msgstr "업데이트 설치 후 시스템 끄는 중..."
+msgstr "업데이트 설치 후 시스템 끄는 중…"
 
 #. TRANSLATORS: we've started doing offline updates
 #: client/pk-offline-update.c:401
@@ -730,45 +733,37 @@ msgstr "PackageKit 모니터"
 
 #. TRANSLATORS: command line argument, do we allow package downgrades
 #: client/pkgc-manage.c:47
-#, fuzzy
 msgid "Allow package downgrades"
-msgstr "트랜잭션 중 패키지 다운그레이드 허용"
+msgstr "패키지 다운그레이드 허용"
 
 #. TRANSLATORS: command line argument, do we allow package re-installations
 #: client/pkgc-manage.c:54
-#, fuzzy
 msgid "Allow package re-installations"
-msgstr "트랜잭션 중 패키지 재설치 허용"
+msgstr "패키지 재설치 허용"
 
 #. TRANSLATORS: command line argument
 #: client/pkgc-manage.c:61
-#, fuzzy
 msgid "Allow installation of untrusted packages"
-msgstr "설치한 패키지의 이전 버전 설치"
+msgstr "신뢰할 수 없는 패키지 설치 허용"
 
 #. TRANSLATORS: command line argument
 #: client/pkgc-manage.c:68
-#, fuzzy
-#| msgid "Automatically remove unused dependencies"
 msgid "Do not automatically remove unused dependencies"
-msgstr "사용되지 않는 의존성 자동으로 삭제"
+msgstr "사용하지 않는 의존 요소를 자동으로 제거하지 않음"
 
 #. TRANSLATORS: command line argument
 #: client/pkgc-manage.c:75
-#, fuzzy
-#| msgid "The maximum metadata cache age (in seconds). Use -1 to use only cache, 1 to reload cache."
 msgid "Maximum metadata cache age in seconds (default: 3 days)"
-msgstr "메타데이터 최대 캐시 기한(초 단위)입니다. 캐시만 사용하려면 -1 값을, 캐시를 다시 불러오려면 1을 설정하십시오."
+msgstr "초단위 최대 메타데이터 캐싱 주기 (기본: 3일)"
 
 #: client/pkgc-manage.c:75
 msgid "SECONDS"
-msgstr ""
+msgstr "<초>"
 
 #. TRANSLATORS: Description for pkgcli refresh
 #: client/pkgc-manage.c:198
-#, fuzzy
 msgid "Refresh the package metadata cache."
-msgstr "캐시 새로 고침"
+msgstr "패키지 메타데이터 캐시를 새로 고칩니다."
 
 #: client/pkgc-manage.c:224
 msgid "Package metadata refreshed"
@@ -798,9 +793,9 @@ msgid "Remove one or more packages from the system."
 msgstr ""
 
 #: client/pkgc-manage.c:384
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find installed packages: %s"
-msgstr "패키지를 찾을 수 없음: %s"
+msgstr "설치한 패키지를 찾을 수 없음: %s"
 
 #. TRANSLATORS: Description for pkgcli download
 #: client/pkgc-manage.c:424
@@ -808,7 +803,7 @@ msgid "Download packages to the specified directory without installing."
 msgstr ""
 
 #: client/pkgc-manage.c:438 client/pkgc-query.c:436 client/pkgc-query.c:768
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find packages: %s"
 msgstr "패키지를 찾을 수 없음: %s"
 
@@ -823,19 +818,18 @@ msgid "Update all packages or specific packages to their latest versions."
 msgstr ""
 
 #: client/pkgc-manage.c:511
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find packages to update: %s"
-msgstr "패키지를 찾을 수 없음: %s"
+msgstr "업데이트할 패키지를 찾을 수 없음: %s"
 
 #: client/pkgc-manage.c:540 client/pkgc-manage.c:641 client/pkgc-manage.c:867
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to get updates: %s"
-msgstr "데몬 상태를 가져올 수 없음"
+msgstr "업데이트를 가져올 수 없음: %s"
 
 #: client/pkgc-manage.c:552 client/pkgc-manage.c:650 client/pkgc-manage.c:875
-#, fuzzy
 msgid "No packages require updating"
-msgstr "새 버전으로 업데이트해야 하는 패키지가 없습니다."
+msgstr "업데이트할 패키지가 없습니다"
 
 #. TRANSLATORS: Description of pkgcli upgrade.
 #. * No not translate "minimal, default, complete", those are parameters
@@ -847,64 +841,59 @@ msgid ""
 msgstr ""
 
 #: client/pkgc-manage.c:686
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read offline update action: %s"
-msgstr "오프라인 업데이트 실행"
+msgstr "오프라인 업데이트 동작 읽어들이기 실패: %s"
 
 #: client/pkgc-manage.c:696
-#, fuzzy
 msgid "Offline update is not triggered."
-msgstr "오프라인 업데이트 메시지 지우기"
+msgstr "오프라인 업데이트를 실행하지 않았습니다."
 
 #: client/pkgc-manage.c:704
-#, fuzzy, c-format
+#, c-format
 msgid "Offline update is triggered. Action after update: %s"
-msgstr "오프라인 업데이트 실행"
+msgstr "오프라인 업데이트를 실행했습니다. 업데이트 후 수행할 동작: %s"
 
 #. TRANSLATORS: Packages that were prepared for an offline update
 #: client/pkgc-manage.c:715
-#, fuzzy
 msgid "Prepared packages:"
-msgstr "준비한 업데이트:"
+msgstr "준비한 패키지:"
 
 #: client/pkgc-manage.c:729
-#, fuzzy
 msgid "No offline update is prepared."
-msgstr "오프라인 업데이트 메시지 지우기"
+msgstr "오프라인 업데이트를 준비하지 않았습니다."
 
 #: client/pkgc-manage.c:731
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read prepared offline updates: %s"
-msgstr "오프라인 업데이트 실행"
+msgstr "준비한 오프라인 업데이트 읽어들이기 실패: %s"
 
 #: client/pkgc-manage.c:741
-#, fuzzy
 msgid "No results from last offline update available."
-msgstr "업데이트 정보 다운로드 중"
+msgstr "최신 오프라인 업데이트 사용 가능 여부 결과가 없습니다."
 
 #: client/pkgc-manage.c:748
-#, fuzzy, c-format
+#, c-format
 msgid "Last offline update failed: %s: %s"
-msgstr "오프라인 업데이트 메시지 지우기"
+msgstr "최신 오프라인 업데이트 실패: %s: %s"
 
 #: client/pkgc-manage.c:755
-#, fuzzy
 msgid "Last offline update completed successfully"
-msgstr "오프라인 업데이트 메시지 지우기"
+msgstr "최신 오프라인 업데이트를 무사히 완료했습니다"
 
 #: client/pkgc-manage.c:766
-#, fuzzy, c-format
+#, c-format
 msgid "Updated: %s"
-msgstr "업데이트됨"
+msgstr "업데이트함: %s"
 
 #: client/pkgc-manage.c:787
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to trigger offline update: %s"
-msgstr "오프라인 업데이트 실행"
+msgstr "오프라인 업데이트 실행 실패: %s"
 
 #: client/pkgc-manage.c:791
 msgid "Offline update scheduled. System will update on next reboot."
-msgstr ""
+msgstr "오프라인 업데이트를 예약했습니다. 다시 시작한 후 시스템을 업데이트합니다."
 
 #. TRANSLATORS: Description of the pkgcli offline-update command.
 #. * The request values (trigger, prepare, etc.) are parameters and MUST NOT be translated.
@@ -918,27 +907,32 @@ msgid ""
 "  cancel  - cancel a planned offline update\n"
 "  status  - show status information about a prepared or finished offline update"
 msgstr ""
+"오프라인 시스템 업데이트를 실행하고 관리합니다.\n"
+"\n"
+"다음 요청 중 하나를 선택할 수 있습니다:\n"
+"  prepare - 오프라인 업데이트를 준비하고 실행합니다 (기본 동작)\n"
+"  trigger - (직접 준비한) 오프라인 업데이트를 실행합니다\n"
+"  cancel  - 계획한 오프라인 업데이트를 취소합니다\n"
+"  status  - 준비한/마친 오프라인 업데이트의 상태 정보를 보여줍니다"
 
 #: client/pkgc-manage.c:835
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to cancel offline update: %s"
-msgstr "auto 설정 값 해석 실패: %s"
+msgstr "오프라인 업데이트 취소 실패: %s"
 
 #: client/pkgc-manage.c:839
-#, fuzzy
 msgid "Offline update cancelled"
-msgstr "오프라인 업데이트 메시지 지우기"
+msgstr "오프라인 업데이트를 취소했습니다"
 
 #: client/pkgc-manage.c:896
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown offline-update request: %s"
-msgstr "오프라인 업데이트 메시지 지우기"
+msgstr "알 수 없는 오프라인 업데이트 요청: %s"
 
 #. TRANSLATORS: Description for pkgcli install-sig
 #: client/pkgc-manage.c:916
-#, fuzzy
 msgid "Install a package signature for GPG verification."
-msgstr "확인 사항을 묻지 않고 패키지 설치"
+msgstr "GPG 검증을 위한 패키지 서명을 설치합니다."
 
 #. TRANSLATORS: Description for pkgcli repair
 #: client/pkgc-manage.c:951
@@ -2682,7 +2676,7 @@ msgstr "백엔드 불러오기 실패: %s"
 #. TRANSLATORS: is not GPG signed
 #: src/pk-transaction.c:2724
 msgid "The software is not from a trusted source."
-msgstr "신뢰할 수 있는 원본에서 프로그램을 가져오지 않았습니다"
+msgstr "신뢰할 수 있는 원본에서 프로그램을 가져오지 않았습니다."
 
 #: src/pk-transaction.c:2732
 msgid "Do not update this package unless you are sure it is safe to do so."
@@ -2690,7 +2684,7 @@ msgstr "안전하다고 판단하기 전에는 이 패키지를 업데이트하�
 
 #: src/pk-transaction.c:2733
 msgid "Do not update these packages unless you are sure it is safe to do so."
-msgstr "안전하다고 판단하기 전에는 이 패키지를 업데이트하지 마십시오"
+msgstr "안전하다고 판단하기 전에는 이 패키지를 업데이트하지 마십시오."
 
 #: src/pk-transaction.c:2743
 msgid "Do not install this package unless you are sure it is safe to do so."
@@ -2698,7 +2692,7 @@ msgstr "안전하다고 판단하기 전에는 이 패키지를 설치하지 마
 
 #: src/pk-transaction.c:2744
 msgid "Do not install these packages unless you are sure it is safe to do so."
-msgstr "안전하다고 판단하기 전에는 이 패키지를 설치하지 마십시오"
+msgstr "안전하다고 판단하기 전에는 이 패키지를 설치하지 마십시오."
 
 #, fuzzy
 #~| msgid "Trigger offline updates"
