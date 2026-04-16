@@ -74,18 +74,8 @@ private:
         if (handleInformationalEvents(ev))
             return 0;
 
-        // use default libpkg implementations for sandboxed calls
-        if (ev->type == PKG_EVENT_SANDBOX_CALL)
-            return pkg_handle_sandboxed_call(ev->e_sandbox_call.call,
-                                             ev->e_sandbox_call.fd,
-                                             ev->e_sandbox_call.userdata);
-        else if (ev->type == PKG_EVENT_SANDBOX_GET_STRING)
-            return pkg_handle_sandboxed_get_string(ev->e_sandbox_call_str.call,
-                                                   ev->e_sandbox_call_str.result,
-                                                   ev->e_sandbox_call_str.len,
-                                                   ev->e_sandbox_call_str.userdata);
         // handle cleanup callbacks
-        else if (ev->type == PKG_EVENT_CLEANUP_CALLBACK_REGISTER) {
+        if (ev->type == PKG_EVENT_CLEANUP_CALLBACK_REGISTER) {
             auto* cleanup = new cleanup_cb;
             cleanup->cb = ev->e_cleanup_callback.cleanup_cb;
             cleanup->data = ev->e_cleanup_callback.data;
