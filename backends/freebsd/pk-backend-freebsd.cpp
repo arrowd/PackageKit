@@ -77,7 +77,7 @@ static void InitAdvertisedGroups()
             PK_GROUP_ENUM_PROGRAMMING, //devel
             PK_GROUP_ENUM_MULTIMEDIA, //multimedia
             PK_GROUP_ENUM_SECURITY, //security
-            PK_GROUP_ENUM_SYSTEM, //sysutils
+            PK_GROUP_ENUM_SYSTEM, //sysutils, filesystems
             PK_GROUP_ENUM_SCIENCE, //science
             PK_GROUP_ENUM_MAPS, //geography
             PK_GROUP_ENUM_VIRTUALIZATION, // emulators
@@ -113,6 +113,7 @@ static const char* portsCategoriesData[] = {
     "elisp",
     "emulators",
     "enlightenment",
+    "filesystems",
     "finance",
     "french",
     "ftp",
@@ -305,7 +306,9 @@ static std::unordered_set<const char*> PKGroupToPortsCategories(PkGroupEnum pk_g
             CHECKED_INSERT("lisp");
             CHECKED_INSERT_BREAK("python");
         case PK_GROUP_ENUM_MULTIMEDIA: CHECKED_INSERT_BREAK("multimedia");
-        case PK_GROUP_ENUM_SYSTEM: CHECKED_INSERT_BREAK("sysutils");
+        case PK_GROUP_ENUM_SYSTEM:
+            CHECKED_INSERT("filesystems");
+            CHECKED_INSERT_BREAK("sysutils");
         case PK_GROUP_ENUM_DESKTOP_GNOME: CHECKED_INSERT_BREAK("gnome");
         case PK_GROUP_ENUM_DESKTOP_KDE: CHECKED_INSERT_BREAK("kde");
         case PK_GROUP_ENUM_DESKTOP_XFCE: CHECKED_INSERT_BREAK("xfce");
@@ -385,6 +388,8 @@ static PkGroupEnum PortsCategoriesToPKGroup(gchar** categories)
         RETURN_CHECKED(PK_GROUP_ENUM_COMMUNICATION);
     if (cats.count("education"))
         RETURN_CHECKED(PK_GROUP_ENUM_EDUCATION);
+    if (cats.count("filesystems"))
+        RETURN_CHECKED(PK_GROUP_ENUM_SYSTEM);
     if (cats.count("multimedia"))
         RETURN_CHECKED(PK_GROUP_ENUM_MULTIMEDIA);
     if (cats.count("x11-fonts"))
