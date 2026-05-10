@@ -1160,8 +1160,9 @@ pk_backend_remove_packages_thread (PkBackendJob *job, GVariant *params, gpointer
 
     uint jobsCount = jobs.solve();
 
-    // TODO: handle locked pkgs
-    g_assert (!jobs.hasLockedPackages());
+    if (!jobs.hasLockedPackages())
+        g_warning ("remove_packages: Some packages are locked and may not be removed");
+
     if (jobsCount == 0) {
         pk_backend_job_error_code (job,
                         PK_ERROR_ENUM_PACKAGE_NOT_INSTALLED,
