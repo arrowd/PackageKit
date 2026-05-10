@@ -1475,8 +1475,7 @@ pk_freebsd_search(PkBackendJob *job, PkBitfield filters, gchar **values)
         match_type = MATCH_ALL;
         break;
     case PK_ROLE_ENUM_SEARCH_DETAILS:
-        // TODO: can we search both comment and pkg-descr? https://github.com/freebsd/pkg/issues/2118
-        searched_field = FIELD_COMMENT;
+        searched_field = FIELD_COMMENT_DESC;
         break;
     case PK_ROLE_ENUM_SEARCH_GROUP:
     {
