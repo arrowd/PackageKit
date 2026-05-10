@@ -700,6 +700,8 @@ pk_backend_get_update_detail (PkBackend *backend, PkBackendJob *job, gchar **pac
 static void
 pk_backend_get_updates_thread (PkBackendJob *job, GVariant *params, gpointer user_data)
 {
+    pk_backend_job_set_status (job, PK_STATUS_ENUM_QUERY);
+
     PKJobCanceller jc (job);
 
     PackageDatabase pkgDb (job);
@@ -739,7 +741,6 @@ void
 pk_backend_get_updates (PkBackend *backend, PkBackendJob *job, PkBitfield filters)
 {
     // No need for PKJobFinisher here as we are using pk_backend_job_thread_create
-    pk_backend_job_set_status (job, PK_STATUS_ENUM_QUERY);
 
     // GOS-397: what filters could we possibly get there?
     if (! (filters == 0
@@ -758,6 +759,8 @@ pk_backend_install_update_packages_thread (PkBackendJob *job, GVariant *params, 
     bool installRole = pk_backend_job_get_role (job) == PK_ROLE_ENUM_INSTALL_PACKAGES;
 
     PKJobCanceller jc (job);
+
+    pk_backend_job_set_status (job, PK_STATUS_ENUM_QUERY);
 
     if (!pk_backend_is_online (reinterpret_cast<PkBackend*>(pk_backend_job_get_backend (job)))) {
         pk_backend_job_error_code (job, PK_ERROR_ENUM_NO_NETWORK, "Cannot update packages when offline");
@@ -793,21 +796,46 @@ pk_backend_install_update_packages_thread (PkBackendJob *job, GVariant *params, 
             return true;
 
         switch (ev->type) {
-            case PKG_EVENT_FETCH_BEGIN:
+            case PKG_EVENT_PKG_FETCH_BEGIN:
+            {
+                jc.allowCancel();
+
                 pk_backend_job_set_status (job, PK_STATUS_ENUM_DOWNLOAD);
                 pk_backend_job_set_percentage (job, 0);
-                jc.allowCancel();
+                PackageView pkgView(ev->e_pkg_fetching.pkg);
+                pk_backend_job_package (job, PK_INFO_ENUM_DOWNLOADING, pkgView.packageKitId(), pkgView.comment());
                 break;
+            }
+            case PKG_EVENT_EXTRACT_BEGIN:
+            {
+                jc.disallowCancel();
+
+                pk_backend_job_set_status (job, PK_STATUS_ENUM_COPY_FILES);
+                pk_backend_job_set_percentage (job, 0);
+                PackageView pkgView(ev->e_install_begin.pkg);
+                pk_backend_job_package (job, PK_INFO_ENUM_DECOMPRESSING, pkgView.packageKitId(), pkgView.comment());
+                break;
+            }
             case PKG_EVENT_INSTALL_BEGIN:
+            {
+                jc.disallowCancel();
+
                 pk_backend_job_set_status (job, PK_STATUS_ENUM_INSTALL);
                 pk_backend_job_set_percentage (job, 0);
-                jc.disallowCancel();
+                PackageView pkgView(ev->e_install_begin.pkg);
+                pk_backend_job_package (job, PK_INFO_ENUM_INSTALLING, pkgView.packageKitId(), pkgView.comment());
                 break;
+            }
             case PKG_EVENT_UPGRADE_BEGIN:
+            {
+                jc.disallowCancel();
+
                 pk_backend_job_set_status (job, PK_STATUS_ENUM_UPDATE);
                 pk_backend_job_set_percentage (job, 0);
-                jc.disallowCancel();
+                PackageView pkgView(ev->e_upgrade_begin.o);
+                pk_backend_job_package (job, PK_INFO_ENUM_UPDATING, pkgView.packageKitId(), pkgView.comment());
                 break;
+            }
             case PKG_EVENT_PROGRESS_TICK:
             {
                 uint progress = (ev->e_progress_tick.current * 100) / ev->e_progress_tick.total;
@@ -815,19 +843,9 @@ pk_backend_install_update_packages_thread (PkBackendJob *job, GVariant *params, 
                 break;
             }
             case PKG_EVENT_INSTALL_FINISHED:
-            {
-                pkg* pkg = ev->e_install_finished.pkg;
-                PackageView pkgView(pkg);
-                pk_backend_job_package (job, PK_INFO_ENUM_INSTALLING, pkgView.packageKitId(), pkgView.comment());
-                break;
-            }
             case PKG_EVENT_UPGRADE_FINISHED:
-            {
-                pkg* pkg = ev->e_upgrade_finished.n;
-                PackageView pkgView(pkg);
-                pk_backend_job_package (job, PK_INFO_ENUM_UPDATING, pkgView.packageKitId(), pkgView.comment());
+                pk_backend_job_set_status (job, PK_STATUS_ENUM_RUNNING);
                 break;
-            }
             case PKG_EVENT_ALREADY_INSTALLED:
             {
                 pkg* pkg = ev->e_already_installed.pkg;
@@ -900,6 +918,8 @@ pk_backend_install_update_packages_thread (PkBackendJob *job, GVariant *params, 
         return;
     }
 
+    pk_backend_job_set_status (job, PK_STATUS_ENUM_RUNNING);
+
     if (!jobs.apply())
         pk_backend_job_error_code (job, PK_ERROR_ENUM_INTERNAL_ERROR,
                                    "Internal libpkg error");
@@ -909,11 +929,6 @@ void
 pk_backend_install_packages (PkBackend *backend, PkBackendJob *job, PkBitfield transaction_flags, gchar **package_ids)
 {
     // No need for PKJobFinisher here as we are using pk_backend_job_thread_create
-
-    if (!pk_backend_is_online (reinterpret_cast<PkBackend*>(pk_backend_job_get_backend (job)))) {
-        pk_backend_job_error_code (job, PK_ERROR_ENUM_NO_NETWORK, "Cannot install packages when offline");
-        return;
-    }
 
     pk_backend_job_thread_create (job, pk_backend_install_update_packages_thread, NULL, NULL);
 }
