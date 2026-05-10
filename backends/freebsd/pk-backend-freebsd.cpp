@@ -883,9 +883,7 @@ pk_backend_install_update_packages_thread (PkBackendJob *job, GVariant *params, 
         return;
     }
 
-    // TODO: https://github.com/freebsd/pkg/issues/2137
-    // libpkg ignores PKG_FLAG_DRY_RUN for the install/upgrade jobs
-    // we have to iterate over jobs to report results to PackageKit
+    // we have to iterate over the job to report results to PackageKit
     if (pk_bitfield_contain (transaction_flags, PK_TRANSACTION_FLAG_ENUM_SIMULATE)) {
         for (auto it = jobs.begin(); it != jobs.end(); ++it) {
             PackageView pkgView = it.newPkgView();
@@ -1145,7 +1143,7 @@ pk_backend_remove_packages_thread (PkBackendJob *job, GVariant *params, gpointer
 
     Jobs jobs(PKG_JOBS_DEINSTALL, pkgDb.handle(), "remove_packages");
 
-    if (allow_deps) // TODO: https://github.com/freebsd/pkg/issues/2124
+    if (allow_deps)
         jobs << PKG_FLAG_RECURSIVE;
     if (pk_bitfield_contain (transaction_flags, PK_TRANSACTION_FLAG_ENUM_SIMULATE))
         jobs << PKG_FLAG_DRY_RUN;
@@ -1177,9 +1175,7 @@ pk_backend_remove_packages_thread (PkBackendJob *job, GVariant *params, gpointer
     if (jc.cancelIfRequested())
         return;
 
-    // TODO: https://github.com/freebsd/pkg/issues/2137
-    // libpkg ignores PKG_FLAG_DRY_RUN for the remove job
-    // we have to iterate over jobs to report results to PackageKit
+    // we have to iterate over the job to report results to PackageKit
     if (pk_bitfield_contain (transaction_flags, PK_TRANSACTION_FLAG_ENUM_SIMULATE)) {
         for (auto it = jobs.begin(); it != jobs.end(); ++it) {
             PackageView pkgView = it.newPkgView();
