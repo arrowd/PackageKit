@@ -1088,8 +1088,6 @@ pk_backend_remove_packages_thread (PkBackendJob *job, GVariant *params, gpointer
             &autoremove);
 
     guint size = g_strv_length (package_ids);
-    // TODO: What should happen when remove_packages() is called with an empty package_ids?
-    g_assert (size > 0);
 
     // TODO: We need https://github.com/freebsd/pkg/issues/1271 to be fixed
     // to support "autoremove"
