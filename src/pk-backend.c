@@ -1421,6 +1421,7 @@ pk_backend_remove_packages (PkBackend *backend,
 	g_return_if_fail (PK_IS_BACKEND (backend));
 	g_return_if_fail (backend->desc->remove_packages != NULL);
 	g_return_if_fail (pk_is_thread_default ());
+	g_return_if_fail (pk_bitfield_contain (transaction_flags, PK_TRANSACTION_FLAG_ENUM_ONLY_DOWNLOAD));
 
 	/* final pre-flight checks */
 	g_assert (pk_backend_job_get_vfunc_enabled (job, PK_BACKEND_SIGNAL_FINISHED));
