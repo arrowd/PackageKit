@@ -747,6 +747,7 @@ pk_backend_get_updates (PkBackend *backend, PkBackendJob *job, PkBitfield filter
         || filters == pk_bitfield_value(PK_FILTER_ENUM_UNKNOWN)
         || filters == pk_bitfield_value(PK_FILTER_ENUM_NONE)
         || filters == pk_bitfield_value(PK_FILTER_ENUM_NEWEST)
+        || filters == pk_bitfield_value(PK_FILTER_ENUM_ARCH)
     ))
         g_error("get_updates: unexpected filters %s", pk_filter_bitfield_to_string(filters));
 
