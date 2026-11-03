@@ -749,7 +749,7 @@ pk_backend_get_updates (PkBackend *backend, PkBackendJob *job, PkBitfield filter
         || filters == pk_bitfield_value(PK_FILTER_ENUM_NEWEST)
         || filters == pk_bitfield_value(PK_FILTER_ENUM_ARCH)
     ))
-        g_error("get_updates: unexpected filters %s", pk_filter_bitfield_to_string(filters));
+        g_warning("get_updates: unexpected filters %s", pk_filter_bitfield_to_string(filters));
 
     pk_backend_job_thread_create (job, pk_backend_get_updates_thread, NULL, NULL);
 }
@@ -782,7 +782,7 @@ pk_backend_install_update_packages_thread (PkBackendJob *job, GVariant *params, 
             || pk_bitfield_contain(transaction_flags, PK_TRANSACTION_FLAG_ENUM_SIMULATE)
             || pk_bitfield_contain(transaction_flags, PK_TRANSACTION_FLAG_ENUM_ONLY_DOWNLOAD))
         )
-        g_error("%s: unexpected transaction_flags %s", context, pk_transaction_flag_bitfield_to_string(transaction_flags));
+        g_warning("%s: unexpected transaction_flags %s", context, pk_transaction_flag_bitfield_to_string(transaction_flags));
 
     pk_backend_job_set_percentage (job, 0);
 
@@ -938,13 +938,13 @@ void
 pk_backend_install_signature (PkBackend *backend, PkBackendJob *job, PkSigTypeEnum type,
                               const gchar *key_id, const gchar *package_id)
 {
-    g_error("pk_backend_install_signature not implemented yet");
+    g_warning("pk_backend_install_signature not implemented yet");
 }
 
 void
 pk_backend_install_files (PkBackend *backend, PkBackendJob *job, PkBitfield transaction_flags, gchar **full_paths)
 {
-    g_error("pk_backend_install_files not implemented yet");
+    g_warning("pk_backend_install_files not implemented yet");
 }
 
 static void
@@ -1261,8 +1261,10 @@ pk_backend_get_repo_list (PkBackend *backend, PkBackendJob *job, PkBitfield filt
     pk_backend_job_set_status (job, PK_STATUS_ENUM_QUERY);
 
     g_assert(!pkg_initialized());
-    if (pkg_ini(NULL, NULL, PKG_INIT_FLAG_USE_IPV4) != EPKG_OK)
-        g_error("get_repo_list: pkg_ini failure");
+    if (pkg_ini(NULL, NULL, PKG_INIT_FLAG_USE_IPV4) != EPKG_OK) {
+        g_warning("get_repo_list: pkg_ini failure");
+        return;
+    }
 
     pkg_repo* repo = NULL;
     while (pkg_repos(&repo) == EPKG_OK) {
@@ -1472,7 +1474,7 @@ pk_freebsd_search(PkBackendJob *job, PkBitfield filters, gchar **values)
         || pk_bitfield_contain(filters, PK_FILTER_ENUM_INSTALLED)
         || pk_bitfield_contain(filters, PK_FILTER_ENUM_ARCH)
     )) {
-        g_error("freebsd_search: unexpected filters %s", pk_filter_bitfield_to_string(filters));
+        g_warning("freebsd_search: unexpected filters %s", pk_filter_bitfield_to_string(filters));
     }
 
     pkgdb_t db_type = PKGDB_REMOTE;
